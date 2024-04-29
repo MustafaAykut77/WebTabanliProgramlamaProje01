@@ -14,9 +14,9 @@ Oyuna ilk girildiğinde Sahne 1 veya Sahne 2'lerden bir tanesi seçilir. Oyun ar
 
 ## Kontroller
 
-### Yürüme Kontrolleri:
+### Yürüme:
 * A,D tuşları ile yürünür W ile zıplanır.
-### Blok Koyma Kontrolleri:
+### Blok Koyma:
 * Sol tıklama ile blok konur.
 ### Durdurma:
 * ESC tuşu veya soldaki menü ile oyun durdurulur.
