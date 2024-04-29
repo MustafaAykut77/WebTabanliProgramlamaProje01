@@ -37,8 +37,6 @@ Oyuna ilk girildiğinde Sahne 1 veya Sahne 2'lerden bir tanesi seçilir. Oyun ar
 ## Projeyi Yapan
 Mustafa AYKUT
 
-## Special Thanks To
-Eren GÜRELİ, Eren KÖSE
 
 
 
