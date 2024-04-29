@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScriptGame</title>
+</head>
+<body>
+    <style>
+        /*Tum ekran icin arkaplan*/
+        body{
+            background-image: url("img/stoneblock.png");
+        }
+        
+        /*menu icinde olusturalacak <div> etiketleri icin ust tanimlayici*/
+        #menu{
+            z-index: 2;
+            background-color: black;
+            height: 768px;
+            position: absolute;
+            visibility: visible;
+            right: 13%;
+            left: 13%;
+            opacity: 90%;
+        }
+
+        /*canvas ogesinin nitelikleri*/
+        #canvas{
+            z-index: 1;
+            text-align: center;
+            position: relative;      
+        }
+
+        /*olusturalacak butonlar icin ust tanimlayici*/
+        #butonlar{
+            z-index: 3;
+            position: absolute;
+        }
+
+        /*durdurma butonu nitelikleri*/
+        #durdurma{
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: 25px;
+            color: white;
+            text-align: center;
+            background-color: rgb(151, 106, 24);
+            height: 100px;
+            margin-top: 70px;
+            padding-top: 20px;
+            border-radius: 40px;
+            border-style: solid;
+            font-style: oblique;
+            border-color: rgb(206, 147, 38);
+            width: 160px;
+            cursor: pointer;
+            visibility: hidden;
+        }
+
+        /*bastan baslatma butonu nitelikleri*/
+        #bastanBaslat{
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: 25px;
+            color: white;
+            text-align: center;
+            background-color: rgb(151, 106, 24);
+            height: 100px;
+            margin-top: 70px;
+            padding-top: 20px;
+            border-radius: 40px;
+            border-style: solid;
+            font-style: oblique;
+            border-color: rgb(206, 147, 38);
+            width: 160px;
+            cursor: pointer;
+            visibility: hidden;
+        }
+
+        /*baslik ogesinin nitelikleri*/
+        #baslik{
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: 35px;
+            color: white;
+            text-align: center;
+            background-color: rgb(101, 66, 1);
+            height: 50px;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-radius: 40px;
+            border-style: solid;
+            font-style: bold;
+            border-color: rgb(206, 147, 38);
+        }
+
+        /*metin ogesinin nitelikleri*/
+        #metin{
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: 25px;
+            color: white;
+            text-align: center;
+            background-color: rgb(151, 106, 24);
+            height: 100px;
+            margin-top: 70px;
+            padding-top: 20px;
+            border-radius: 40px;
+            border-style: solid;
+            font-style: oblique;
+            border-color: rgb(206, 147, 38);
+        }
+
+        /*bolum1 ogesinin nitelikleri*/
+        #bolum1{
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: 25px;
+            color: white;
+            text-align: center;
+            background-color: rgb(151, 106, 24);
+            height: 50px;
+            margin-top: 70px;
+            padding-top: 20px;
+            border-radius: 40px;
+            border-style: solid;
+            font-style: oblique;
+            border-color: rgb(206, 147, 38);
+            margin-left: 27%;
+            width: 500px;
+            cursor: pointer;
+        }
+
+        /*bolum2 ogesinin nitelikleri*/
+        #bolum2{
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: 25px;
+            color: white;
+            text-align: center;
+            background-color: rgb(151, 106, 24);
+            height: 50px;
+            margin-top: 70px;
+            padding-top: 20px;
+            border-radius: 40px;
+            border-style: solid;
+            font-style: oblique;
+            border-color: rgb(206, 147, 38);
+            margin-left: 27%;
+            width: 500px;
+            cursor: pointer;
+        }
+    </style>
+
+    <!-- oyuna girildiginde ekranda olusacak menunun html ile olusturulmasi -->
+    <div id="menu">
+        <div id="baslik">ÖLÜMCÜL MADENDE HAZİNE AVI</div>
+        <div id="metin">Bu oyunda A,D ile sağa sola yürüyüp W tuşu ile zıplanır.<br>Oyunun Ana Mekaniği üstünde yürünecek blokların 
+            sol tıklama ile istenilen yere konmasıdır.</div>
+        <div id="bolum1"><b>BÖLÜM 1</b></div>
+        <div id="bolum2"><b>BÖLÜM 2</b></div>
+    </div>
+
+    <!-- sol kenarda duran butonlarin html ile olusturulmasi -->
+    <div id="butonlar">
+        <div id="durdurma">DURDUR<br>BAŞLAT<br><b>ESC</b></div>
+        <div id="bastanBaslat">BAŞTAN BAŞLAT<br><b>R</b></div>
+    </div>
+
+    <!-- canvas ogesinin html ile olusturulmasi -->
+    <div id="canvas">
+        <canvas></canvas>
+    </div>
+    
+    <!-- oyun boyunca kullanilacak javascript dosyalarini ekleme -->
+    <script src="./fonksiyonlar.js"></script>
+    <script src="./classes/CarpismaBlogu.js"></script>
+    <script src="./classes/Arkaplan.js"></script>
+    <script src="./classes/Cisim.js"></script>
+    <script src="./bolumler/carpismalar.js"></script>
+    <script src="./bolumler/carpismalar2.js"></script>
+    <script src="index.js"></script>
+    
+</body>
+</html>
