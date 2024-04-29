@@ -1,4 +1,6 @@
+//CISIM SINIFI
 class Cisim {
+    //constructor
     constructor({ pozisyon, hiz, zeminCarpismaBloklari, olumCarpismaBloklari, kazanmaBloklari, bloklar, resimYolu, sahne}){
         this.pozisyon = pozisyon;
         this.hiz = hiz;  
@@ -7,21 +9,20 @@ class Cisim {
         this.mevcutKare = 0;
         this.gecenKare = 0;
         this.kareSayac = 7;
-
         this.width = 31.5;
         this.height = 31.5; 
         this.zeminCarpismaBloklari = zeminCarpismaBloklari;
         this.olumCarpismaBloklari = olumCarpismaBloklari;
         this.kazanmaBloklari = kazanmaBloklari;
         this.bloklar = bloklar
-
         this.sahne = sahne;
     }   
-    
+    //cizme fonksiyonu
     ciz(){
         if(!this.image){
             return;
         }
+        //oyuncunun goruntusunun animasyonu olabilmesi icin frame by frame goruntuyu kirpma
         const kirpilmis = {
             pozisyon:{
                 x: this.mevcutKare*32,
@@ -30,6 +31,7 @@ class Cisim {
             width: 32,
             height: 32,
         }
+        //kirpilan goruntuyu ekrana yazdirma
         c.drawImage(
             this.image, 
             kirpilmis.pozisyon.x, 
@@ -42,8 +44,10 @@ class Cisim {
             32,
         )
     }
-
+    //guncelleme fonksiyonu
     guncelle(){
+        //karakter animasyonu kare sayisi oyunun kare sayisindan cok daha kucuk oldugu icin
+        //karakter animasyonunun geciktirilerek yapilmasi
         this.gecenKare++;
         if(this.gecenKare % this.kareSayac == 0){
             if(this.mevcutKare < 11-1){
@@ -53,6 +57,7 @@ class Cisim {
                 this.mevcutKare = 0;
             }
         }
+        //ekrana yazdirma
         this.ciz(); 
         this.pozisyon.x += this.hiz.x;
         this.yatayCarpismaKontrolEt();
@@ -60,6 +65,7 @@ class Cisim {
         this.dikeyCarpismaKontrolEt(); 
     }
 
+    //olusturulan cisimin yatay eksende carpisma kontrolu
     yatayCarpismaKontrolEt(){
         //ZEMIN CARPISMA BLOKLARI--------------------------------------------------------------------------------------
         for(let i=0; i<this.zeminCarpismaBloklari.length; i++){
@@ -70,6 +76,7 @@ class Cisim {
                 object2: zeminCarpismaBlogu,
             })
             ){
+                //zemin ile carpisiliyorsa karakterin durmasini saglar
                 if(this.hiz.x > 0){
                     this.hiz.x = 0;
                     this.pozisyon.x = zeminCarpismaBlogu.pozisyon.x - this.width - 0.01;
@@ -93,6 +100,7 @@ class Cisim {
                 object2: carpismaBlogu,
             })
             ){
+                //herhangi bir blok ile karakter carpisiyorsa durmasini saglar
                 if(this.hiz.x > 0){
                     this.hiz.x = 0;
                     this.pozisyon.x = carpismaBlogu.pozisyon.x - this.width - 0.01;
@@ -116,6 +124,7 @@ class Cisim {
                 object2: olumCarpismaBlogu,
             })
             ){
+                //karakter bir olum bloguna carparsa sahneye gore konumunu sifirlar
                 if(this.sahne == 1){
                     this.pozisyon.x = 96;
                     this.pozisyon.y = 480;
@@ -136,6 +145,7 @@ class Cisim {
                 object2: kazanmaBlogu,
             })
             ){
+                //karakter kazanma bloguna ulastıgında alert olarak bildirir ve konumunu sifirlar
                 alert("Tebrikler Kazandınız!");
                 if(this.sahne == 1){
                     this.pozisyon.x = 96;
@@ -149,11 +159,13 @@ class Cisim {
         }
     }
 
+    //cisime yercekimini uygulama
     yercekimiUygula(){
         this.pozisyon.y += this.hiz.y;
         this.hiz.y += yercekimi;
     }
 
+    //dikeyde carpismalari kontrol etme
     dikeyCarpismaKontrolEt(){
         //ZEMIN CARPISMA BLOKLARI------------------------------------------------------------------------------------
         for(let i=0; i<this.zeminCarpismaBloklari.length; i++){
@@ -164,6 +176,7 @@ class Cisim {
                 object2: zeminCarpismaBlogu,
             })
             ){
+                //zemin blogu ile carpistiysa hizini sifirlar
                 if(this.hiz.y > 0){
                     this.hiz.y = 0;
                     this.pozisyon.y = zeminCarpismaBlogu.pozisyon.y - this.height - 0.01;
@@ -187,6 +200,7 @@ class Cisim {
                 object2: CarpismaBlogu,
             })
             ){
+                //herhangi bir blok ile carpisirsa hizini sifirlar
                 if(this.hiz.y > 0){
                     this.hiz.y = 0;
                     this.pozisyon.y = CarpismaBlogu.pozisyon.y - this.height - 0.01;
@@ -210,6 +224,7 @@ class Cisim {
                 object2: olumCarpismaBlogu,
             })
             ){
+                //olum bloguna carparsa sahneye gore konumunu sifirlar
                 if(this.sahne == 1){
                     this.pozisyon.x = 96;
                     this.pozisyon.y = 480;
@@ -230,6 +245,7 @@ class Cisim {
                 object2: kazanmaBlogu,
             })
             ){
+                //kazanma bloguna degerse alert olarak kullaniciya bildirir ve pozisyonu sifirlar
                 alert("Tebrikler Kazandınız!");
                 if(this.sahne == 1){
                     this.pozisyon.x = 96;
