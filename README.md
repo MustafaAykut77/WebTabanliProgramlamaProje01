@@ -4,7 +4,7 @@
 [Oyun Linki](https://mustafaaykut77.github.io/WebTabanliProgramlamaProje01/)
 
 ## Oynanış Videosu
-örnek
+[Oynanış Videosu](https://youtu.be/SIEGoBo7YGc)
 
 ## Ana Fikir
 
