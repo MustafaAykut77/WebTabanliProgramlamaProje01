@@ -1,14 +1,18 @@
 const canvas = document.querySelector("canvas");
 const c = canvas.getContext("2d");
 
+//canvas boyutunu ayarlama
 canvas.width = 1280;
 canvas.height = 768;
 
+//bolumler icin carpisma bloklarinin tanimlanmasi
 var bloklar = [];
 var zeminCarpismaBloklari = []; 
 var olumCarpismaBloklari = [];
 var kazanmaBloklari = [];
 
+//carpisma bloklarinin hesaplanip yerlerine konmasi
+//CARPISMA BLOKLARINI HESAPLAMA FONKSIYONU---------------------------------------------------------------------------------
 function carpismaBloklariHesapla(zeminCarpismalari, kazanmaCarpismalari, olumCarpismalari, blokCarpismalari){
 
     this.zeminCarpismalari = zeminCarpismalari;
@@ -18,10 +22,14 @@ function carpismaBloklariHesapla(zeminCarpismalari, kazanmaCarpismalari, olumCar
 
     //ZEMIN CARPISMA BLOKLARI----------------------------------------------------------------------------------------------
     const zeminCarpismalar2D = [];
+    //erkan dikey olarak 40 tane bloga bolundugu icin i'yi her seferinde 40 arttiririz.
     for(let i=0 ; i < this.zeminCarpismalari.length ; i+=40){
+        //2D dizi olarak farkli bir diziye saklanir.
         zeminCarpismalar2D.push(this.zeminCarpismalari.slice(i, i+40));
     }
 
+    //dizi icine konulan bloklarin 32x32 piksel olmasini saglar
+    //ayni zamanda "bolumler" dosyasindan alinan verilere gore yerlerine koyar.
     const zeminCarpismaBloklari_function = [];
     zeminCarpismalar2D.forEach((satir, y) => {
         satir.forEach((kontrol, x) => {
@@ -104,6 +112,7 @@ function carpismaBloklariHesapla(zeminCarpismalari, kazanmaCarpismalari, olumCar
         })
     })
 
+    //islem duzgun yapildi mi kontrolu icin konsola yazdirir.
     console.log(bloklar_function);
     console.log(zeminCarpismaBloklari_function);
     console.log(olumCarpismaBloklari_function);
@@ -193,6 +202,7 @@ canvas.addEventListener('click', function(event) {
 
     let flag = false;
 
+    //tiklanan yerde herhangi turde bir carpisma blogu var mi yok mu kontrolleri.
     for(let i=0; i<zeminCarpismaBloklari.length;i++){
         if(tiklananCarpismaBlogu.pozisyon.x == zeminCarpismaBloklari[i].pozisyon.x && tiklananCarpismaBlogu.pozisyon.y == zeminCarpismaBloklari[i].pozisyon.y){
             console.log("Aynı Çarpışma Bloğu!");
@@ -229,6 +239,7 @@ canvas.addEventListener('click', function(event) {
         }
     }
 
+    //tiklanan yerde bir carpisma blogu yoksa tiklanan yerde bir carpisma blogu olusturur.
     if(!flag){
         zeminCarpismaBloklari.push(tiklananCarpismaBlogu);
     }
@@ -256,11 +267,13 @@ function animate(true_false){
         oyuncu.guncelle();
         oyuncu.hiz.x = 0;
 
+        //oyuncu haritadan asagi duserse olmesini saglar.
         if(oyuncu.pozisyon.y > 800){
             oyuncu.pozisyon.x = 64;
             oyuncu.pozisyon.y = 640;
         }
 
+        //oyuncu a veya d harflerine basarda yurumesini saglar.
         if(keys.a.basildi && sonBasilan == "a"){
             oyuncu.hiz.x = -1;
         }
