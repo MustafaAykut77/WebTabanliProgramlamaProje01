@@ -3,6 +3,8 @@ function carpisma({
     object1,
     object2
 }){
+    //karakter solunda, saginda, ustunde ve asaginda bir carpisma blogu var mi diye kontrol eder
+    //butun hepsi ayni anda saglanirsa su anda karakter bir blokla carpisiyor anlamina gelir.
     return (object1.pozisyon.y + object1.height >= object2.pozisyon.y &&
         object1.pozisyon.y <= object2.pozisyon.y + object2.height &&
         object1.pozisyon.x <= object2.pozisyon.x + object2.width &&
@@ -10,6 +12,7 @@ function carpisma({
     )
 }
 
+//index.html sayfasinda olusturulan dugmelerin ve menulerin id'sinin alinmasi
 const menu = document.getElementById("menu");
 const durdurma = document.getElementById("durdurma");
 const bastanBaslat = document.getElementById("bastanBaslat");
@@ -17,7 +20,9 @@ const bastanBaslat = document.getElementById("bastanBaslat");
 const bolum1 = document.getElementById("bolum1");
 const bolum2 = document.getElementById("bolum2");
 
+//bolum1 tusuna eventlistener eklenmesi
 bolum1.addEventListener("click", function(){
+    //sahne1'e gore menulerde ve oyunda degisimlerin yapimasi.
     if(oyuncu.sahne != 1){
         arkaplan.image.src = "./img/Bolum1.png";
         carpismaBloklari = carpismaBloklariHesapla(zeminCarpismalari, kazanmaCarpismalari, olumCarpismalari, blokCarpismalari);
@@ -39,7 +44,9 @@ bolum1.addEventListener("click", function(){
         animate(true);
     }
 })
+//bolum2 tusuna eventlistener eklenmesi
 bolum2.addEventListener("click", function(){
+    //sahne2'ye gore menulerde ve oyunda degisimlerin yapilmasi
     if(oyuncu.sahne != 2){
         arkaplan.image.src = "./img/Bolum2.png";
         carpismaBloklari = carpismaBloklariHesapla(zeminCarpismalari2, kazanmaCarpismalari2, olumCarpismalari2, blokCarpismalari2);
@@ -62,6 +69,7 @@ bolum2.addEventListener("click", function(){
     }
 })
 
+//ekranin solundaki durdurma tusu icin eventlistener ekleme
 durdurma.addEventListener("click", function(){
     if(oyuncu.sahne != 0){
         if(keys.esc.basildi){
@@ -77,22 +85,25 @@ durdurma.addEventListener("click", function(){
     }
 })
 
+//bastan baslatma tusu icin eventlistener ekleme
 bastanBaslat.addEventListener("click", function(){
     if(oyuncu.sahne == 1){
         oyuncu.pozisyon.x = 128;
         oyuncu.pozisyon.y = 480;
+        //bastan basladiginda koyulan bloklarin silinmesi
         for(let i=zeminCarpismaBloklari.length; i>9 ;i--)
             zeminCarpismaBloklari.pop();
     }
     else if(oyuncu.sahne == 2){
         oyuncu.pozisyon.x = 64;
         oyuncu.pozisyon.y = 640;
+        //bastan basladiginde koyulan bloklarin silinmesi
         for(let i=zeminCarpismaBloklari.length; i>17 ;i--)
             zeminCarpismaBloklari.pop();
     }
 })
 
-//BASMA OLAYINA EVENTLISTENER EKLEME-------------------------------------------------------------------------------------------------
+//KLAVYEDEN BASMA OLAYINA EVENTLISTENER EKLEME-------------------------------------------------------------------------------------------------
 window.addEventListener("keydown", (event) => {
     switch(event.key){
         case "d":
@@ -106,6 +117,7 @@ window.addEventListener("keydown", (event) => {
         case "w":
             oyuncu.hiz.y = -4;
         break;
+        //ESC tusunda oyunun durmasi
         case"Escape":
             if(oyuncu.sahne != 0){
                 if(keys.esc.basildi){
@@ -120,6 +132,7 @@ window.addEventListener("keydown", (event) => {
                 }
             }
         break;
+        //R tusunda oyunun bastan baslamasi
         case"r":
             if(oyuncu.sahne == 1){
                 oyuncu.pozisyon.x = 128;
