@@ -3,6 +3,9 @@
 ## Oynama Linki
 [Oyun Linki](https://mustafaaykut77.github.io/WebTabanliProgramlamaProje01/)
 
+## Oynanış Videosu
+örnek
+
 ## Ana Fikir
 
 * Oyunumdaki amaç 2D bir haritada altın kupa hedefine ulaşarak oyunu kazanmaktır.
